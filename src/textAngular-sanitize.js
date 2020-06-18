@@ -585,6 +585,18 @@ function validStyles(styleAttr){
 				)
 			|| // Reference #520
 				(key === 'direction' && value.match(/^ltr|rtl|initial|inherit$/))
+                    || // Extended by P+Z, allow margin/padding
+                    (key === 'padding' || key === 'margin') && (
+                        value.match(/(([0-9\.]*(px|em|rem|%)){1,4})|(0? ?auto)/)
+                    )
+                    ||
+                    (key.match(/padding-(top|bottom|left|right)/) || key.match(/margin-(top|bottom|left|right)/)) && (
+                        value.match(/(([0-9\.]*(px|em|rem|%)))|(0? ?auto)/)
+                    )
+                    ||
+                    (key.match(/font-family/)) && (
+                        value.match(/[\s\w,]+/)
+                    )
 			) result += key + ': ' + value + ';';
 		}
 	});
